@@ -1,0 +1,15 @@
+# General
+.DS_Store
+.env
+
+# Backend (Spring/Maven)
+backend/target/
+backend/.settings/
+backend/.project
+backend/.classpath
+backend/.sts4-cache/
+
+# Frontend (React/Node)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
