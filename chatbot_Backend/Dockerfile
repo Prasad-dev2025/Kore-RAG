@@ -2,7 +2,8 @@
 FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /app
 COPY . .
-RUN ./mvnw clean package -DskipTests
+# We use 'sh' to run the script to avoid permission errors
+RUN sh mvnw clean package -DskipTests
 
 # Stage 2: Run the application
 FROM eclipse-temurin:25-jdk-jammy
