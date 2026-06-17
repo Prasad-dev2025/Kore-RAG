@@ -46,7 +46,7 @@ export default function KnowledgeTrainer() {
         formData.append('file', selectedFile);
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/ai/upload', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/ai/upload`, {
                 method: 'POST',
                 body: formData,
             });
