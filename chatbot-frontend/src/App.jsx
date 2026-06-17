@@ -2,12 +2,36 @@ import React, { useState, useEffect, useMemo } from 'react';
 import ChatBox from './components/ChatBox';
 
 function App() {
-  const [sessions, setSessions] = useState(() => {
+ const [sessions, setSessions] = useState(() => {
     const saved = localStorage.getItem('ai_chat_sessions');
-    return saved ? JSON.parse(saved) : [{ id: Date.now(), title: 'New Chat Session', messages: [] }];
+    return saved ? JSON.parse(saved) : [];
   });
 
-  const [activeSessionId, setActiveSessionId] = useState(sessions[0]?.id);
+  const [activeSessionId, setActiveSessionId] = useState(null);
+
+  // This runs once when the app starts, handles the "New Chat" logic cleanly
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('ai_chat_sessions') || '[]');
+    const lastSession = saved[0];
+
+    if (lastSession && lastSession.messages.length > 0) {
+      // Last session was used, create a fresh one
+      const newId = Date.now();
+      const newSession = { id: newId, title: 'New Chat Session', messages: [] };
+      setSessions([newSession, ...saved]);
+      setActiveSessionId(newId);
+    } else if (lastSession) {
+      // Have a session but it's empty, resume it
+      setActiveSessionId(lastSession.id);
+    } else {
+      // Nothing in history, create the very first one
+      const newId = Date.now();
+      const newSession = { id: newId, title: 'New Chat Session', messages: [] };
+      setSessions([newSession]);
+      setActiveSessionId(newId);
+    }
+  }, []); // Empty array ensures this runs exactly once
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
