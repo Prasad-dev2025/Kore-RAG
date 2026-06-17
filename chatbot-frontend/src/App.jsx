@@ -94,6 +94,17 @@ function App() {
     }
   };
 
+  const handleClearAllHistory = () => {
+    if (window.confirm("Are you sure you want to clear all chat history?")) {
+      const newId = Date.now();
+      const freshSession = { id: newId, title: 'New Chat Session', messages: [] };
+      
+      setSessions([freshSession]);
+      setActiveSessionId(newId);
+      setIsSidebarOpen(false);
+    }
+  };
+
   // FIXED: This now accepts a callback function or a direct array, making it 100% safe for streams
   const updateActiveSessionMessages = (messagesOrUpdater) => {
     setSessions(prevSessions => prevSessions.map(
@@ -253,6 +264,26 @@ function App() {
               </div>
             );
           })}
+        </div>
+        <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid #1e293b' }}>
+          <button
+            onClick={handleClearAllHistory}
+            style={{
+              width: '100%',
+              background: 'transparent',
+              color: '#ef4444',
+              border: '1px solid #ef4444',
+              borderRadius: '8px',
+              padding: '10px',
+              fontSize: '13px',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => { e.target.style.background = '#ef4444'; e.target.style.color = '#fff'; }}
+            onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = '#ef4444'; }}
+          >
+            🗑️ Clear All History
+          </button>
         </div>
       </div>
 
