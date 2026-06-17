@@ -240,7 +240,7 @@ function App() {
           >
             ☰
           </button>
-          <span style={{ fontWeight: 'bold', fontSize: '16px' }}>🤖 Qwen3 Hub</span>
+          <span style={{ fontWeight: 'bold', fontSize: '16px' }}>🤖 Kore RAG</span>
         </div>
 
         <div style={{ flexGrow: 1, overflowY: 'auto', padding: '15px' }}>
