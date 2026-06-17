@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/api/v1/ai';
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/v1/ai`;
 
 export const trainModelWithData = async (textContext) => {
     const response = await fetch(`${BASE_URL}/train`, {
