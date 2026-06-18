@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
-        // THIS IS THE KEY: It prints the FULL error details in your Render logs
+        
         logger.error("!!! FATAL AI SERVICE ERROR !!!", e);
         
         return ResponseEntity.status(500).body("AI Service error: " + e.getMessage());

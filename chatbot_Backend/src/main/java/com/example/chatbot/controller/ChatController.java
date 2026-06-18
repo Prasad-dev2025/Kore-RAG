@@ -23,19 +23,17 @@ public class ChatController {
 		this.aiService = aiService;
 	}
 
-	// 1. Regular conversation endpoint using your simple ChatRequest record
-	// Keep your existing imports, but ensure you have the service call wrapped correctly
+	
 	@PostMapping(value = "/stream-chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<String> streamChat(@RequestBody ChatRequest request) {
-	    // The service returns Flux<String>, which is perfect. 
-	    // Ensure the service method itself is using the null-safe check we discussed.
+		
 	    return aiService.streamChatWithMemory(request);
 	}
 
-	// 2. Simple extraction directly from incoming JSON without extra DTOs
+	
 	@PostMapping("/train")
 	public String ingestText(@RequestBody Map<String, String> payload) {
-	    // Check if the key exists to avoid NullPointerException
+	    
 	    String extractedContent = payload.getOrDefault("content", "");
 	    
 	    if (extractedContent.isEmpty()) {

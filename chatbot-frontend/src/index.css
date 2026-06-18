@@ -110,40 +110,33 @@ code {
   background: var(--code-bg);
 }
 
-/* 1. The Scrollable Message viewport layout */
 .chat-messages-container {
   flex-grow: 0.5;
   overflow-y: auto;
   padding: 20px;
   scroll-behavior: smooth;
   
-  /* Firefox specific scaling to keep it thin */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
-/* 2. Set an ultra-fine width profile */
 .chat-messages-container::-webkit-scrollbar {
   width: 4px; /* Premium ultra-thin line */
 }
 
-/* 3. Keep the background rail track completely invisible */
 .chat-messages-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* 4. THE FIX: Give it a faint, elegant presence so it exists, but blends into the dark background */
 .chat-messages-container::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.08); 
   border-radius: 10px;
 }
 
-/* 5. Lights up beautifully when you hover over the chat box container */
 .chat-messages-container:hover::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.25); 
 }
 
-/* 6. Active state when you are actively clicking and dragging it */
 .chat-messages-container::-webkit-scrollbar-thumb:active {
   background: rgba(255, 255, 255, 0.4);
 }

@@ -9,28 +9,27 @@ function App() {
 
   const [activeSessionId, setActiveSessionId] = useState(null);
 
-  // This runs once when the app starts, handles the "New Chat" logic cleanly
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('ai_chat_sessions') || '[]');
     const lastSession = saved[0];
 
     if (lastSession && lastSession.messages.length > 0) {
-      // Last session was used, create a fresh one
+
       const newId = Date.now();
       const newSession = { id: newId, title: 'New Chat Session', messages: [] };
       setSessions([newSession, ...saved]);
       setActiveSessionId(newId);
     } else if (lastSession) {
-      // Have a session but it's empty, resume it
+
       setActiveSessionId(lastSession.id);
     } else {
-      // Nothing in history, create the very first one
+
       const newId = Date.now();
       const newSession = { id: newId, title: 'New Chat Session', messages: [] };
       setSessions([newSession]);
       setActiveSessionId(newId);
     }
-  }, []); // Empty array ensures this runs exactly once
+  }, []); 
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -88,7 +87,6 @@ function App() {
 
     setSessions(newSessions);
 
-    // If the deleted session was the active one, switch to the first remaining one
     if (activeSessionId === id) {
       setActiveSessionId(newSessions[0].id); // Force ID change
     }
@@ -105,12 +103,11 @@ function App() {
     }
   };
 
-  // FIXED: This now accepts a callback function or a direct array, making it 100% safe for streams
   const updateActiveSessionMessages = (messagesOrUpdater) => {
     setSessions(prevSessions => prevSessions.map(
       session => {
         if (session.id === activeSessionId) {
-          // Resolve the new messages array if an updater function was passed
+
           const newMessages = typeof messagesOrUpdater === 'function'
             ? messagesOrUpdater(session.messages)
             : messagesOrUpdater;
@@ -300,7 +297,7 @@ function App() {
 
         <div style={{ flexGrow: 1, overflowY: 'auto', padding: '15px' }}>
           <div style={{ width: '100%', height: '100%' }}>
-            {/* CHANGED: We pass down the direct session messages array, and the update function */}
+
             <ChatBox
               key={activeSessionId}
               messages={activeSession?.messages || []}

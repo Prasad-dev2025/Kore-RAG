@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   margin: 16px 0;
-  padding-left: 12px; /* Margins it nicely next to the chat wall */
+  padding-left: 12px; 
   width: fit-content;
 }
 
@@ -15,19 +15,16 @@
   justify-content: center;
 }
 
-/* --- REDUCED PHYSICAL NODE SIZE --- */
 .gemini-physical-node {
   position: absolute;
-  width: 4.5px;         /* Shrunk from 7px down to a crisp 4.5px */
-  height: 4.5px;        /* Shrunk from 7px down to a crisp 4.5px */
+  width: 4.5px;        
+  height: 4.5px;        
   background: #ffffff;
   border-radius: 50%;
-  /* Calibrated glow weights so the tiny dots stay sharp */
   box-shadow: 0 0 6px rgba(255, 255, 255, 1), 0 0 12px rgba(147, 197, 253, 0.5);
   z-index: 5;
 }
 
-/* --- PATHWAY CHOREOGRAPHY CONFIGURATIONS (6s Full Loop) --- */
 
 .node-apex {
   animation: apexChoreography 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -41,19 +38,17 @@
   animation: rightChoreography 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-/* --- KINETIC GEOMETRY TRACKS --- */
 
 @keyframes apexChoreography {
   0% { transform: translate(0, 0) scale(0); opacity: 0; }
-  5% { transform: translate(0, 0) scale(1.4); opacity: 1; } /* Initial Shockwave Scale */
-  12% { transform: translate(0px, -14px) scale(1); }        /* Forms Triangle Apex */
+  5% { transform: translate(0, 0) scale(1.4); opacity: 1; } 
+  12% { transform: translate(0px, -14px) scale(1); }       
   
-  /* Spin Right (Clockwise) while closing into each other */
+
   20% { transform: translate(10px, -6px); }
   28% { transform: translate(6px, 8px); }
-  35% { transform: translate(-2px, -2px); }                 /* Tight close cluster */
+  35% { transform: translate(-2px, -2px); }                 
   
-  /* Anti-Clockwise Reverse Action */
   45% { transform: translate(-12px, 6px); }
   55% { transform: translate(12px, 6px); }
   65% { transform: translate(0px, -14px); }
@@ -65,14 +60,12 @@
 @keyframes leftChoreography {
   0% { transform: translate(0, 0) scale(0); opacity: 0; }
   5% { transform: translate(0, 0) scale(1.4); opacity: 1; }
-  12% { transform: translate(-12px, 10px) scale(1); }       /* Forms Left Base Point */
+  12% { transform: translate(-12px, 10px) scale(1); }      
   
-  /* Spin Right (Clockwise) while closing into each other */
   20% { transform: translate(-6px, -12px); }
   28% { transform: translate(12px, -4px); }
-  35% { transform: translate(2px, 2px); }                   /* Tight close cluster */
+  35% { transform: translate(2px, 2px); }                  
   
-  /* Anti-Clockwise Reverse Action */
   45% { transform: translate(12px, -8px); }
   55% { transform: translate(-12px, -8px); }
   65% { transform: translate(-12px, 10px); }
@@ -84,26 +77,22 @@
 @keyframes rightChoreography {
   0% { transform: translate(0, 0) scale(0); opacity: 0; }
   5% { transform: translate(0, 0) scale(1.4); opacity: 1; }
-  12% { transform: translate(12px, 10px) scale(1); }        /* Forms Right Base Point */
+  12% { transform: translate(12px, 10px) scale(1); }        
   
-  /* Spin Right (Clockwise) while closing into each other */
   20% { transform: translate(-12px, 8px); }
   28% { transform: translate(-10px, -10px); }
-  35% { transform: translate(0px, 0px); }                   /* Tight close cluster */
+  35% { transform: translate(0px, 0px); }                   
   
-  /* Anti-Clockwise Reverse Action */
   45% { transform: translate(0px, 14px); }
   55% { transform: translate(0px, -14px); }
   65% { transform: translate(12px, 10px); }
   
-  /* Return to center, then emit the terminal singular dot wave */
   80% { transform: translate(0, 0) scale(1); opacity: 1; }
-  86% { transform: translate(0, 0) scale(1.6); opacity: 1; } /* Balanced end pulse scale */
+  86% { transform: translate(0, 0) scale(1.6); opacity: 1; } 
   92%, 100% { transform: translate(0, 0) scale(0); opacity: 0; }
 }
 
 
-/* --- THE RADIAL PULSE SHOCKWAVES --- */
 
 .gemini-pulse-wave {
   position: absolute;
@@ -119,12 +108,10 @@
   opacity: 0;
 }
 
-/* Start Pulse Wave (Triggered instantly at 0s) */
 .wave-initial {
   animation: initialWaveTrack 6s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
 }
 
-/* End Pulse Wave (Triggered exclusively by the trailing dot at the end of the loop) */
 .wave-terminal {
   border-color: rgba(147, 197, 253, 0.7);
   box-shadow: inset 0 0 6px rgba(147, 197, 253, 0.25);

@@ -6,7 +6,6 @@ import ThinkingLoader from './ThinkingLoader';
 import { fetchStreamingChat } from '../services/apiService';
 
 export default function ChatBox({ messages, onMessagesUpdate }) {
-  // Local lock managing button states and UI indicators
   const [loading, setLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
 
@@ -14,7 +13,6 @@ export default function ChatBox({ messages, onMessagesUpdate }) {
   const abortControllerRef = useRef(null);
   const messageEndRef = useRef(null);
 
-  // Auto-scroll to the latest message on content updates
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isThinking]);
@@ -36,7 +34,6 @@ export default function ChatBox({ messages, onMessagesUpdate }) {
     const tempAiId = Date.now();
     const initialAiMessage = { id: tempAiId, sender: 'ai', text: '' };
 
-    // Update parent array history
     onMessagesUpdate([...messages, userMessage, initialAiMessage]);
 
     const controller = new AbortController();
@@ -66,20 +63,17 @@ export default function ChatBox({ messages, onMessagesUpdate }) {
 
           accumulatedAiText += processedChunk;
 
-          // Push incremental text back to the parent safely
           onMessagesUpdate((currentHistory) =>
             currentHistory.map((m) => (m.id === tempAiId ? { ...m, text: accumulatedAiText } : m))
           );
         },
         (error) => {
           console.error("Streaming connection error:", error);
-          // Even if it's an error from the stream, reset UI and alert the user
           setLoading(false);
           setIsThinking(false);
           alert("System Offline: Could not reach the AI backend.");
         },
         () => {
-          // Clear streaming context once processing completes normally
           setLoading(false);
           setIsThinking(false);
           abortControllerRef.current = null;
@@ -88,12 +82,11 @@ export default function ChatBox({ messages, onMessagesUpdate }) {
       );
     }
     catch (err) {
-      console.log("CATCH BLOCK TRIGGERED:", err); // ADD THIS
+      console.log("CATCH BLOCK TRIGGERED:", err); 
       setLoading(false);
       setIsThinking(false);
       alert("Backend is offline or unreachable!");
 
-      // Optional: Remove the empty AI message if the request failed immediately
       onMessagesUpdate((currentHistory) =>
         currentHistory.filter(m => m.id !== tempAiId)
       );
@@ -132,7 +125,6 @@ export default function ChatBox({ messages, onMessagesUpdate }) {
           <div ref={messageEndRef} />
         </div>
 
-        {/* FIXED: Mapped props match your ChatInput contract perfectly */}
         <ChatInput
           onSendMessage={handleSendMessage}
           onStopMessage={handleStopGeneration}
